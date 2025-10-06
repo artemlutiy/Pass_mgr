@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Xml;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 
 namespace Pass_mgr
 {
@@ -30,7 +31,13 @@ namespace Pass_mgr
     }
     public class PasswordSystem //системный класс менеджера паролей, шифрование, сохранения и все вот это вот
     {
-        public void SavePasswords(List<PasswordRecords> records)
+        public List<PasswordRecords> records = new();
+        
+        public PasswordSystem()
+        {
+            LoadPasswords();
+        }
+        public void SavePasswords()
         {
             try
             {
@@ -44,11 +51,18 @@ namespace Pass_mgr
                 MessageBox.Show(ex.Message);
             }
         }
-        public List<PasswordRecords> LoadPasswords()
+        public void LoadPasswords()
         {
             string jsonstring = File.ReadAllText("data.json");
             var Records = JsonSerializer.Deserialize<List<PasswordRecords>>(jsonstring);
-            return Records;
+            records = Records;
+        }
+        public void UpdatePasswords(PasswordRecords record, PasswordRecords updateRecord)
+        {
+            int index = records.IndexOf(record);
+            records[index] = updateRecord;
+            Debug.Print($"Индекс: {index}");
+            SavePasswords();
         }
     }
 }

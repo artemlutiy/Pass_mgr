@@ -7,12 +7,11 @@ namespace Pass_mgr
         CreateWrite? dialog;
         PasswordCard? cntrl;
         SettingsForm? SettForm;
-        List<PasswordRecords?> records = new();
-        PasswordSystem sys = new();
+        public PasswordSystem sys = new();
         public Form1()
         {
             InitializeComponent();
-            Load_PasswordData(sys.LoadPasswords());
+            Load_PasswordData();
 
         }
 
@@ -30,12 +29,13 @@ namespace Pass_mgr
         private void CreatingNewWrite(string? name, string? login, string? password, string? site, string? note) //добавление карточки, вызывается из формы создания записи
         {
             cntrl = new PasswordCard(new PasswordRecords(name, login, site, password, note));
-            records.Add(new PasswordRecords(name, login, site, password, note));
-            sys.SavePasswords(records);
+            sys.records.Add(new PasswordRecords(name, login, site, password, note));
+            sys.SavePasswords();
             cntrl.Margin = new Padding(5);
             flowLayoutPanel1.Controls.Add(cntrl);
             cntrl.PasswordCardBodyClick += PassCardBodyClc;
             cntrl.PasswordDelete += PasswordCard_delete;
+            cntrl.EditWrite += sys.UpdatePasswords;
 
             if (dialog != null) dialog.Close();
         }
@@ -78,9 +78,10 @@ namespace Pass_mgr
         {
             //помош еее I_I
         }
-        private void Load_PasswordData(List<PasswordRecords> records)
+        private void Load_PasswordData()
         {
-            foreach (var record in records)
+            
+            foreach (var record in sys.records)
             {
                 cntrl = new(record);
                 cntrl.Margin = new Padding(5);
@@ -89,5 +90,6 @@ namespace Pass_mgr
                 cntrl.PasswordDelete += PasswordCard_delete;
             }
         }
+        
     }
 }

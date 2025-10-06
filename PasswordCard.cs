@@ -102,7 +102,8 @@ namespace Pass_mgr
         }*/
         public delegate void Data(string? name, string? login, string? password, string? site, string? note);
         public delegate void Delete(PasswordCard obj);
-        
+        public delegate void DataRecord(PasswordRecords oldpass, PasswordRecords newpass);
+        public event DataRecord EditWrite;
         public event Delete PasswordDelete;
         public event Data? PasswordCardBodyClick;
 
@@ -115,7 +116,7 @@ namespace Pass_mgr
                 editform.Update += ChangeInfo;
             }
         }
-
+        
         private void DeleteButt_Click(object? sender, EventArgs e)
         {
             PasswordDelete?.Invoke(this);
@@ -124,9 +125,11 @@ namespace Pass_mgr
         {
             PasswordCardBodyClick?.Invoke(record.Name, record.Login, record.Password, record.Site, record.Note);
         }
-        private void ChangeInfo(PasswordRecords pass)
+        private void ChangeInfo(PasswordRecords oldpass, PasswordRecords newpass)
         {
-            record = pass;
+            record = newpass;
+            EditWrite?.Invoke(oldpass, newpass);
+            //record = pass;
             editform.Close();
         }
     }
