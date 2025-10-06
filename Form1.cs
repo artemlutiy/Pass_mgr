@@ -12,7 +12,7 @@ namespace Pass_mgr
         public Form1()
         {
             InitializeComponent();
-
+            Load_PasswordData(sys.LoadPasswords());
 
         }
 
@@ -29,7 +29,7 @@ namespace Pass_mgr
         }
         private void CreatingNewWrite(string? name, string? login, string? password, string? site, string? note) //добавление карточки, вызывается из формы создания записи
         {
-            cntrl = new PasswordCard(name, password, site, login, note);
+            cntrl = new PasswordCard(new PasswordRecords(name, login, site, password, note));
             records.Add(new PasswordRecords(name, login, site, password, note));
             sys.SavePasswords(records);
             cntrl.Margin = new Padding(5);
@@ -77,6 +77,17 @@ namespace Pass_mgr
         private void HelpButton_Click(object sender, EventArgs e)
         {
             //помош еее I_I
+        }
+        private void Load_PasswordData(List<PasswordRecords> records)
+        {
+            foreach (var record in records)
+            {
+                cntrl = new(record);
+                cntrl.Margin = new Padding(5);
+                flowLayoutPanel1.Controls.Add(cntrl);
+                cntrl.PasswordCardBodyClick += PassCardBodyClc;
+                cntrl.PasswordDelete += PasswordCard_delete;
+            }
         }
     }
 }

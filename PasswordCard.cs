@@ -12,29 +12,27 @@ namespace Pass_mgr
 {
     public partial class PasswordCard : UserControl
     {
-        public PasswordCard(string writeName, string password, string site, string login, string note = "No data")
+        public PasswordCard(PasswordRecords record)
         {
             
             InitializeComponent();
-            label1.Text = this.writeName;
+            label1.Text = record.Name;
+            this.record = record;
             this.Click += CardBody_click;
             label1.Click += CardBody_click;
-            this.writeName = writeName;
-            this.password = password;
-            this.site = site;
-            this.login = login;
-            this.note = note;
+            
 
         }
+        PasswordRecords record;
         EditWriteForm editform;
         //stackOverflow бяка >:c
-        private string _writeName;
+       /* private string _writeName;
         private string _password;
         private string _site;
         private string _login;
-        private string _note;
+        private string _note;*/
         //свойства, надо нужно
-        public string writeName
+       /* public string writeName
         {
             get
             {
@@ -101,7 +99,7 @@ namespace Pass_mgr
                 else
                     _note = value;
             }
-        }
+        }*/
         public delegate void Data(string? name, string? login, string? password, string? site, string? note);
         public delegate void Delete(PasswordCard obj);
         
@@ -112,7 +110,7 @@ namespace Pass_mgr
         {
             if (editform == null || editform.IsDisposed)
             {
-                editform = new EditWriteForm(writeName, password, site, login, note);
+                editform = new EditWriteForm(record);
                 editform.Show();
                 editform.Update += ChangeInfo;
             }
@@ -124,15 +122,11 @@ namespace Pass_mgr
         }
         private void CardBody_click(object? sender, EventArgs e)
         {
-            PasswordCardBodyClick?.Invoke(writeName, login, password, site, note);
+            PasswordCardBodyClick?.Invoke(record.Name, record.Login, record.Password, record.Site, record.Note);
         }
-        private void ChangeInfo(string? name, string? login, string? password, string? site, string? note)
+        private void ChangeInfo(PasswordRecords pass)
         {
-            writeName = name;
-            this.login = login;
-            this.password = password;
-            this.site = site;
-            this.note = note;
+            record = pass;
             editform.Close();
         }
     }
