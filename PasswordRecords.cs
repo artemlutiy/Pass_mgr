@@ -23,7 +23,6 @@ namespace Pass_mgr
             Site = site;
             Note = note;
         }
-        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
@@ -54,23 +53,16 @@ namespace Pass_mgr
         }
         public void LoadPasswords()
         {
-            if(!File.Exists("data.json"))
-                    return;
             string jsonstring = File.ReadAllText("data.json");
             var Records = JsonSerializer.Deserialize<List<PasswordRecords>>(jsonstring);
             records = Records;
         }
         public void UpdatePasswords(PasswordRecords record, PasswordRecords updateRecord)
         {
-            int index = records.FindIndex(r => r.Id == record.Id);
-            if (index != -1)
-            {
-                records[index] = updateRecord;
-                Debug.Print($"Индекс: {index}");
-                SavePasswords();
-            }
-            else
-                MessageBox.Show("Whoops");
+            int index = records.IndexOf(record);
+            records[index] = updateRecord;
+            Debug.Print($"Индекс: {index}");
+            SavePasswords();
         }
     }
 }
