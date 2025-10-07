@@ -127,7 +127,9 @@ namespace Pass_mgr
         }
         private void ChangeInfo(PasswordRecords oldpass, PasswordRecords newpass)
         {
+            newpass.Id = oldpass.Id;
             record = newpass;
+            
             EditWrite?.Invoke(oldpass, newpass);
             //record = pass;
             editform.Close();
