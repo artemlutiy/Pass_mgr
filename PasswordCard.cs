@@ -23,7 +23,7 @@ namespace Pass_mgr
             
 
         }
-        PasswordRecords record;
+        public PasswordRecords record;
         EditWriteForm editform;
         //stackOverflow бяка >:c
        /* private string _writeName;

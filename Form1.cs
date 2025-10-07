@@ -29,7 +29,7 @@ namespace Pass_mgr
         private void CreatingNewWrite(string? name, string? login, string? password, string? site, string? note) //добавление карточки, вызывается из формы создания записи
         {
             cntrl = new PasswordCard(new PasswordRecords(name, login, site, password, note));
-            sys.records.Add(new PasswordRecords(name, login, site, password, note));
+            sys.records.Add(cntrl.record);
             sys.SavePasswords();
             cntrl.Margin = new Padding(5);
             flowLayoutPanel1.Controls.Add(cntrl);
@@ -88,6 +88,7 @@ namespace Pass_mgr
                 flowLayoutPanel1.Controls.Add(cntrl);
                 cntrl.PasswordCardBodyClick += PassCardBodyClc;
                 cntrl.PasswordDelete += PasswordCard_delete;
+                cntrl.EditWrite += sys.UpdatePasswords;
             }
         }
         

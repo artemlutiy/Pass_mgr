@@ -66,7 +66,7 @@ namespace Pass_mgr
             if (index != -1)
             {
                 records[index] = updateRecord;
-                Debug.Print($"Индекс: {index}");
+                MessageBox.Show(index.ToString());
                 SavePasswords();
             }
             else
