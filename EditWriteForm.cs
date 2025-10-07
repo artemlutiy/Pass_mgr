@@ -30,6 +30,7 @@ namespace Pass_mgr
         private void AcceptButton_Click(object sender, EventArgs e)
         {
             updateRecord = new(WriteNameBox.Text, WriteLoginBox.Text, WriteSiteBox.Text, WritePasswordBox.Text, WriteNoteBox.Text);
+            updateRecord.Id = record.Id;
             /*updateRecord.Name = WriteNameBox.Text;
             updateRecord.Login = WriteLoginBox.Text;
             updateRecord.Password = WritePasswordBox.Text;
