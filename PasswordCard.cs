@@ -129,10 +129,11 @@ namespace Pass_mgr
         {
             newpass.Id = oldpass.Id;
             record = newpass;
-            
+            label1.Text = record.Name;
             EditWrite?.Invoke(oldpass, newpass);
             //record = pass;
             editform.Close();
+            PasswordCardBodyClick?.Invoke(record.Name, record.Login, record.Password, record.Site, record.Note);
         }
     }
 }

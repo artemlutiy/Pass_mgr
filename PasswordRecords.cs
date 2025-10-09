@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Text.Json;
+using System.Security.Cryptography;
 using System.Xml;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
+
 
 namespace Pass_mgr
 {
@@ -33,18 +32,30 @@ namespace Pass_mgr
     public class PasswordSystem //системный класс менеджера паролей, шифрование, сохранения и все вот это вот
     {
         public List<PasswordRecords> records = new();
+        //private byte[] key;
+        //private byte[] iv;
         
         public PasswordSystem()
         {
             LoadPasswords();
+            /*using (Aes aes = Aes.Create())
+            {
+                key = aes.Key;
+                iv = aes.IV;
+            }
+            SaveKey();*/
         }
         public void SavePasswords()
         {
             try
             {
-                
-                string jsonstring = JsonSerializer.Serialize(records);
-                File.WriteAllText("data.json", jsonstring);
+                JsonSerializerOptions options = new()
+                {
+                    WriteIndented = true
+                };
+                Directory.CreateDirectory("Data");
+                string jsonstring = JsonSerializer.Serialize(records, options);
+                File.WriteAllText(@"Data\data.dat", jsonstring);
                 
             }
             catch(Exception ex)
@@ -54,9 +65,9 @@ namespace Pass_mgr
         }
         public void LoadPasswords()
         {
-            if(!File.Exists("data.json"))
+            if(!File.Exists(@"Data\data.dat"))
                     return;
-            string jsonstring = File.ReadAllText("data.json");
+            string jsonstring = File.ReadAllText(@"Data\data.dat");
             var Records = JsonSerializer.Deserialize<List<PasswordRecords>>(jsonstring);
             records = Records;
         }
@@ -66,11 +77,36 @@ namespace Pass_mgr
             if (index != -1)
             {
                 records[index] = updateRecord;
-                MessageBox.Show(index.ToString());
+                
                 SavePasswords();
             }
             else
-                MessageBox.Show("Whoops");
+                MessageBox.Show("Эм ошибка:(");
         }
+        public void DeletePassword(PasswordRecords record)
+        {
+            int index = records.FindIndex(r => r.Id == record.Id);
+            if (index != -1)
+            {
+                records.RemoveAt(index);
+                
+                SavePasswords();
+            }
+        }
+       
+       /* private void SaveKey()
+        {
+            var keyData = new
+            {
+                Key = Convert.ToBase64String(key),
+                IV = Convert.ToBase64String(iv)
+            };
+            string json = JsonSerializer.Serialize(keyData);
+            File.WriteAllText(@"Data\encryption.key", json);
+        }
+        private byte[] EncryptToByte()
+        {
+
+        }*/
     }
 }

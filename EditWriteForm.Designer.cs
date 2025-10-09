@@ -144,9 +144,11 @@
             // 
             // EditWriteForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
             ClientSize = new Size(489, 154);
+            ControlBox = false;
             Controls.Add(CancelButton);
             Controls.Add(AcceptButton);
             Controls.Add(label5);
@@ -159,7 +161,11 @@
             Controls.Add(WritePasswordBox);
             Controls.Add(WriteLoginBox);
             Controls.Add(WriteNameBox);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "EditWriteForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Редактирование записи";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -7,6 +7,7 @@ namespace Pass_mgr
         CreateWrite? dialog;
         PasswordCard? cntrl;
         SettingsForm? SettForm;
+        HelpForm? helpForm;
         public PasswordSystem sys = new();
         public Form1()
         {
@@ -65,6 +66,7 @@ namespace Pass_mgr
                 PasswordBox.Text = "";
                 NoteBox.Text = "";
                 SiteBox.Text = ""; //подтираем из панельки записи :)
+                sys.DeletePassword(obj.record);
             }
         }
 
@@ -77,6 +79,12 @@ namespace Pass_mgr
         private void HelpButton_Click(object sender, EventArgs e)
         {
             //помош еее I_I
+            if (helpForm == null || helpForm.IsDisposed)
+            {
+                helpForm = new HelpForm();
+                helpForm.Show();
+                
+            }
         }
         private void Load_PasswordData()
         {
