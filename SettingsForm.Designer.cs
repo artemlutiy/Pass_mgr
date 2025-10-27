@@ -34,12 +34,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 72F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label1.Location = new Point(-10, 114);
+            label1.Location = new Point(291, 145);
             label1.Name = "label1";
-            label1.Size = new Size(732, 128);
+            label1.Size = new Size(110, 15);
             label1.TabIndex = 0;
-            label1.Text = "Тута чота будет";
+            label1.Text = "Будут добавлены...";
             // 
             // SettingsForm
             // 
@@ -48,7 +47,7 @@
             ClientSize = new Size(698, 353);
             Controls.Add(label1);
             Name = "SettingsForm";
-            Text = "SettingsForm";
+            Text = "Настройки";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -32,11 +32,11 @@
             SettingsButt = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             panel1 = new Panel();
-            NoteBox = new Label();
-            SiteBox = new Label();
-            PasswordBox = new Label();
-            LoginBox = new Label();
-            NameBox = new Label();
+            NoteBox = new TextBox();
+            PasswordBox = new TextBox();
+            SiteBox = new TextBox();
+            LoginBox = new TextBox();
+            NameBox = new TextBox();
             NoteLabel = new Label();
             SiteLabel = new Label();
             PasswordLabel = new Label();
@@ -78,8 +78,8 @@
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(NoteBox);
-            panel1.Controls.Add(SiteBox);
             panel1.Controls.Add(PasswordBox);
+            panel1.Controls.Add(SiteBox);
             panel1.Controls.Add(LoginBox);
             panel1.Controls.Add(NameBox);
             panel1.Controls.Add(NoteLabel);
@@ -94,43 +94,48 @@
             // 
             // NoteBox
             // 
-            NoteBox.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            NoteBox.Location = new Point(17, 183);
+            NoteBox.BorderStyle = BorderStyle.None;
+            NoteBox.Location = new Point(17, 186);
             NoteBox.Name = "NoteBox";
-            NoteBox.Size = new Size(197, 23);
-            NoteBox.TabIndex = 9;
-            // 
-            // SiteBox
-            // 
-            SiteBox.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            SiteBox.Location = new Point(17, 145);
-            SiteBox.Name = "SiteBox";
-            SiteBox.Size = new Size(197, 23);
-            SiteBox.TabIndex = 8;
+            NoteBox.ReadOnly = true;
+            NoteBox.Size = new Size(202, 16);
+            NoteBox.TabIndex = 14;
             // 
             // PasswordBox
             // 
-            PasswordBox.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            PasswordBox.Location = new Point(17, 107);
+            PasswordBox.BorderStyle = BorderStyle.None;
+            PasswordBox.Location = new Point(17, 111);
             PasswordBox.Name = "PasswordBox";
-            PasswordBox.Size = new Size(197, 23);
-            PasswordBox.TabIndex = 7;
+            PasswordBox.ReadOnly = true;
+            PasswordBox.Size = new Size(202, 16);
+            PasswordBox.TabIndex = 13;
+            // 
+            // SiteBox
+            // 
+            SiteBox.BorderStyle = BorderStyle.None;
+            SiteBox.Location = new Point(17, 149);
+            SiteBox.Name = "SiteBox";
+            SiteBox.ReadOnly = true;
+            SiteBox.Size = new Size(202, 16);
+            SiteBox.TabIndex = 12;
             // 
             // LoginBox
             // 
-            LoginBox.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            LoginBox.Location = new Point(17, 69);
+            LoginBox.BorderStyle = BorderStyle.None;
+            LoginBox.Location = new Point(17, 73);
             LoginBox.Name = "LoginBox";
-            LoginBox.Size = new Size(197, 23);
-            LoginBox.TabIndex = 6;
+            LoginBox.ReadOnly = true;
+            LoginBox.Size = new Size(202, 16);
+            LoginBox.TabIndex = 11;
             // 
             // NameBox
             // 
-            NameBox.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            NameBox.Location = new Point(17, 31);
+            NameBox.BorderStyle = BorderStyle.None;
+            NameBox.Location = new Point(17, 35);
             NameBox.Name = "NameBox";
-            NameBox.Size = new Size(197, 23);
-            NameBox.TabIndex = 5;
+            NameBox.ReadOnly = true;
+            NameBox.Size = new Size(202, 16);
+            NameBox.TabIndex = 10;
             // 
             // NoteLabel
             // 
@@ -197,9 +202,11 @@
             Controls.Add(flowLayoutPanel1);
             Controls.Add(SettingsButt);
             Controls.Add(CreateButt);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MinimumSize = new Size(757, 489);
             Name = "Form1";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Менеджер паролей";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -216,11 +223,11 @@
         private Label SiteLabel;
         private Label PasswordLabel;
         private Label LoginLabel;
-        private Label NameBox;
-        private Label SiteBox;
-        private Label PasswordBox;
-        private Label LoginBox;
-        private Label NoteBox;
         private Button HelpButton;
+        private TextBox NoteBox;
+        private TextBox PasswordBox;
+        private TextBox SiteBox;
+        private TextBox LoginBox;
+        private TextBox NameBox;
     }
 }

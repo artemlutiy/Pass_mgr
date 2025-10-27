@@ -12,21 +12,31 @@ namespace Pass_mgr
 {
     public partial class EditWriteForm : Form
     {
-        public EditWriteForm(string writeName, string password, string site, string login, string note = "No data")
+        PasswordRecords record;
+        PasswordRecords updateRecord;
+        public EditWriteForm(PasswordRecords record)
         {
             InitializeComponent();
-            WriteNameBox.Text = writeName;
-            WritePasswordBox.Text = password;
-            WriteLoginBox.Text = login;
-            WriteSiteBox.Text = site;
-            WriteNoteBox.Text = note;
+            this.record = record;
+            WriteNameBox.Text = record.Name;
+            WritePasswordBox.Text = record.Password;
+            WriteLoginBox.Text = record.Login;
+            WriteSiteBox.Text = record.Site;
+            WriteNoteBox.Text = record.Note;
         }
-        public delegate void DataUpdate(string writeName, string password, string site, string login, string note);
+        public delegate void DataUpdate(PasswordRecords oldpass, PasswordRecords newpass);
         public event DataUpdate Update;
 
         private void AcceptButton_Click(object sender, EventArgs e)
         {
-            Update?.Invoke(WriteNameBox.Text, WritePasswordBox.Text, WriteSiteBox.Text, WriteLoginBox.Text, WriteNoteBox.Text);
+            updateRecord = new(WriteNameBox.Text, WriteLoginBox.Text, WriteSiteBox.Text, WritePasswordBox.Text, WriteNoteBox.Text);
+            updateRecord.Id = record.Id;
+            /*updateRecord.Name = WriteNameBox.Text;
+            updateRecord.Login = WriteLoginBox.Text;
+            updateRecord.Password = WritePasswordBox.Text;
+            updateRecord.Site = WriteSiteBox.Text;
+            updateRecord.Note = WriteNoteBox.Text;*/
+            Update?.Invoke(record, updateRecord);
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

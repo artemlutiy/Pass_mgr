@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Text.Json;
+using System.Security.Cryptography;
 using System.Xml;
 using System.ComponentModel;
 using System.Data;
+
 
 namespace Pass_mgr
 {
@@ -22,6 +22,7 @@ namespace Pass_mgr
             Site = site;
             Note = note;
         }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
@@ -29,26 +30,106 @@ namespace Pass_mgr
         public string Note { get; set; }
     }
     public class PasswordSystem //системный класс менеджера паролей, шифрование, сохранения и все вот это вот
+
     {
-        public void SavePasswords(List<PasswordRecords> records)
+        public List<PasswordRecords> records = new();
+        //private byte[] key;
+        //private byte[] iv;
+        
+        public PasswordSystem()
+        {
+            LoadPasswords();
+            /*using (Aes aes = Aes.Create())
+            {
+                key = aes.Key;
+                iv = aes.IV;
+            }
+            SaveKey();*/
+        }
+        public void SavePasswords()
         {
             try
             {
-                
-                string jsonstring = JsonSerializer.Serialize(records);
-                File.WriteAllText("data.json", jsonstring);
-                
-            }
+                JsonSerializerOptions options = new()
+                {
+                    WriteIndented = true
+                };
+                Directory.CreateDirectory("Data");
+                string jsonstring = JsonSerializer.Serialize(records, options);
+                File.WriteAllText(@"Data\data.dat", jsonstring);
+
+                            }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-        public List<PasswordRecords> LoadPasswords()
+        public void LoadPasswords()
         {
-            string jsonstring = File.ReadAllText("data.json");
+            if(!File.Exists(@"Data\data.dat"))
+                    return;
+            string jsonstring = File.ReadAllText(@"Data\data.dat");
             var Records = JsonSerializer.Deserialize<List<PasswordRecords>>(jsonstring);
-            return Records;
+            records = Records;
+        }
+        public void UpdatePasswords(PasswordRecords record, PasswordRecords updateRecord)
+        {
+            int index = records.FindIndex(r => r.Id == record.Id);
+            if (index != -1)
+            {
+                records[index] = updateRecord;
+                
+                SavePasswords();
+            }
+            else
+                MessageBox.Show("Эм ошибка:(");
+        }
+        public void DeletePassword(PasswordRecords record)
+        {
+            int index = records.FindIndex(r => r.Id == record.Id);
+            if (index != -1)
+            {
+                records.RemoveAt(index);
+                
+                SavePasswords();
+            }
+        }
+       
+       /* private void SaveKey()
+        {
+            var keyData = new
+            {
+                Key = Convert.ToBase64String(key),
+                IV = Convert.ToBase64String(iv)
+            };
+            string json = JsonSerializer.Serialize(keyData);
+            File.WriteAllText(@"Data\encryption.key", json);
+        }
+        private byte[] EncryptToByte()
+        {
+
+        }*/
+    }
+    public static class AuthService
+    {
+        public static void SaveMasterPass(string masterPass, AuthorizationForm sender)
+        {
+            Directory.CreateDirectory("Data");
+            using(FileStream fs = new(@"Data\service.dat", FileMode.OpenOrCreate))
+            using (BinaryWriter bw = new(fs))
+            {
+                bw.Write(Encoding.UTF8.GetBytes(masterPass));
+            }
+            sender.Close();
+        }
+        public static bool CheckMasterPass(string inputPass)
+        {
+            string masterPass = File.ReadAllText(@"Data\service.dat");
+            
+            if (masterPass == inputPass)
+                return true;
+            else return false;
         }
     }
 }
+

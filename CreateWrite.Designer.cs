@@ -144,9 +144,10 @@
             // 
             // CreateWrite
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(489, 154);
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
+            ClientSize = new Size(489, 161);
             ControlBox = false;
             Controls.Add(CancelButton);
             Controls.Add(AcceptButton);
@@ -160,8 +161,10 @@
             Controls.Add(WritePasswordBox);
             Controls.Add(WriteLoginBox);
             Controls.Add(WriteNameBox);
-            MaximumSize = new Size(505, 193);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "CreateWrite";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Создать запись";
             ResumeLayout(false);
             PerformLayout();
