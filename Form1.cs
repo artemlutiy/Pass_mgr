@@ -8,14 +8,37 @@ namespace Pass_mgr
         PasswordCard? cntrl;
         SettingsForm? SettForm;
         HelpForm? helpForm;
+        AuthorizationForm authForm;
         public PasswordSystem sys = new();
         public Form1()
         {
             InitializeComponent();
-            Load_PasswordData();
+            bool choose = File.Exists(@"Data\service.dat");
+            authForm = new(choose);
+            authForm.ReadyMasterPass += CheckPass;
+            authForm.CreateMassterPass += AuthService.SaveMasterPass;
+            
+            authForm.ShowDialog();
+
+            
 
         }
+        private void CheckPass(string input, AuthorizationForm sender)
+        {
+            if (AuthService.CheckMasterPass(input))
+            {
+                sender.Close();
+                Load_PasswordData();
+            }
+            else
+            {
+                authForm.textBox1.Text = "";
+                MessageBox.Show("¬веден неверный мастер-пароль");
+            }
+                
 
+            
+        }
         private void CreateButt_Click(object sender, EventArgs e) //вызываетс€ при нажатии кнопки создать в основной
         {
             if (dialog == null || dialog.IsDisposed)

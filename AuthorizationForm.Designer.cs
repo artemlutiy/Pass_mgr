@@ -38,15 +38,16 @@
             // 
             textBox1.Location = new Point(12, 25);
             textBox1.Name = "textBox1";
+            textBox1.PasswordChar = '*';
             textBox1.Size = new Size(193, 23);
             textBox1.TabIndex = 0;
             // 
             // label1
             // 
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.Location = new Point(12, 1);
             label1.Name = "label1";
-            label1.Size = new Size(193, 23);
+            label1.Size = new Size(193, 21);
             label1.TabIndex = 1;
             label1.Text = "Введите мастер-пароль";
             // 
@@ -58,6 +59,7 @@
             button1.TabIndex = 2;
             button1.Text = "Войти";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -67,28 +69,34 @@
             button2.TabIndex = 3;
             button2.Text = "Отмена";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // AuthorizationForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(217, 114);
+            AutoSize = true;
+            ClientSize = new Size(209, 106);
+            ControlBox = false;
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(textBox1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximumSize = new Size(233, 153);
             Name = "AuthorizationForm";
-            Text = "AuthorizationForm";
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Авторизация";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private TextBox textBox1;
         private Label label1;
         private Button button1;
         private Button button2;
+        public TextBox textBox1;
     }
 }

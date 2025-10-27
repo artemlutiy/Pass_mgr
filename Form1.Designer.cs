@@ -202,8 +202,10 @@
             Controls.Add(flowLayoutPanel1);
             Controls.Add(SettingsButt);
             Controls.Add(CreateButt);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MinimumSize = new Size(757, 489);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Менеджер паролей";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

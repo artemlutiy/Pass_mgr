@@ -30,6 +30,7 @@ namespace Pass_mgr
         public string Note { get; set; }
     }
     public class PasswordSystem //системный класс менеджера паролей, шифрование, сохранения и все вот это вот
+
     {
         public List<PasswordRecords> records = new();
         //private byte[] key;
@@ -56,8 +57,8 @@ namespace Pass_mgr
                 Directory.CreateDirectory("Data");
                 string jsonstring = JsonSerializer.Serialize(records, options);
                 File.WriteAllText(@"Data\data.dat", jsonstring);
-                
-            }
+
+                            }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -109,4 +110,26 @@ namespace Pass_mgr
 
         }*/
     }
+    public static class AuthService
+    {
+        public static void SaveMasterPass(string masterPass, AuthorizationForm sender)
+        {
+            Directory.CreateDirectory("Data");
+            using(FileStream fs = new(@"Data\service.dat", FileMode.OpenOrCreate))
+            using (BinaryWriter bw = new(fs))
+            {
+                bw.Write(Encoding.UTF8.GetBytes(masterPass));
+            }
+            sender.Close();
+        }
+        public static bool CheckMasterPass(string inputPass)
+        {
+            string masterPass = File.ReadAllText(@"Data\service.dat");
+            
+            if (masterPass == inputPass)
+                return true;
+            else return false;
+        }
+    }
 }
+
