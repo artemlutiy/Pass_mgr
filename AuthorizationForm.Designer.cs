@@ -73,17 +73,17 @@
             // 
             // AuthorizationForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(209, 106);
+            ClientSize = new Size(217, 114);
             ControlBox = false;
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(textBox1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximumSize = new Size(233, 153);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "AuthorizationForm";
             ShowIcon = false;
             ShowInTaskbar = false;
